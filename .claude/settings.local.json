@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Process *)",
+      "PowerShell(Get-Content .\\\\frontend\\\\src\\\\data\\\\galleryImages.json -TotalCount 20; Write-Output \"---\"; \\(Get-Content .\\\\frontend\\\\src\\\\data\\\\galleryImages.json -Raw | ConvertFrom-Json\\).Count)",
+      "PowerShell(Add-Type -AssemblyName System.Drawing; $i=[System.Drawing.Image]::FromFile\\(\"C:\\\\Users\\\\ADMIN\\\\Desktop\\\\Gurukrupa_Website\\\\frontend\\\\public\\\\logo.png\"\\); \"logo.png: $\\($i.Width\\) x $\\($i.Height\\)\"; $i.Dispose\\(\\))",
+      "PowerShell(Add-Type -AssemblyName System.Drawing; $i=New-Object System.Drawing.Bitmap\\(\"C:\\\\Users\\\\ADMIN\\\\Desktop\\\\Gurukrupa_Website\\\\frontend\\\\public\\\\logo.png\"\\); \"PixelFormat: $\\($i.PixelFormat\\)\"; foreach\\($p in @\\(@\\(2,2\\),@\\(1024,20\\),@\\(2040,2040\\),@\\(1024,1024\\)\\)\\){ $c=$i.GetPixel\\($p[0],$p[1]\\); \"\\($\\($p[0]\\),$\\($p[1]\\)\\) A=$\\($c.A\\) R=$\\($c.R\\) G=$\\($c.G\\) B=$\\($c.B\\)\" }; $i.Dispose\\(\\))",
+      "PowerShell(npm run dev -- --port 5199)",
+      "PowerShell(\\(Get-Content .\\\\src\\\\RemainingPages.jsx | Measure-Object -Line\\).Lines)",
+      "PowerShell(npm run build 2>&1)",
+      "PowerShell(Get-ChildItem -Recurse frontend\\\\public -File | Select-Object -ExpandProperty FullName | ForEach-Object { $_.Replace\\(\\(Get-Location\\).Path + '\\\\',''\\) }; echo \"--- assets ---\"; Get-ChildItem -Recurse frontend\\\\src\\\\assets -File | Select-Object Name, Length)",
+      "PowerShell(Copy-Item \"C:\\\\Users\\\\ADMIN\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-ADMIN-Desktop-Gurukrupa-Website\\\\33208fca-ad3f-4e19-80b7-8651a349bd53\\\\scratchpad\\\\ssr-counts.mjs\" \".\\\\ssr-counts.tmp.mjs\")",
+      "PowerShell(node \".\\\\ssr-counts.tmp.mjs\")",
+      "PowerShell(python --version)",
+      "PowerShell(python -c \"import PIL; print\\('Pillow', PIL.__version__\\)\")",
+      "PowerShell(python \"C:\\\\Users\\\\ADMIN\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-ADMIN-Desktop-Gurukrupa-Website\\\\33208fca-ad3f-4e19-80b7-8651a349bd53\\\\scratchpad\\\\logo_probe.py\")",
+      "PowerShell(Get-ChildItem -Path . -Depth 2 -Directory | Where-Object { $_.FullName -notmatch 'node_modules|\\\\.next|\\\\.git' } | Select-Object -ExpandProperty FullName)"
+    ]
+  }
+}

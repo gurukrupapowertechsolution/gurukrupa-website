@@ -1,0 +1,152 @@
+﻿<USER_REQUEST>
+MASTER PROMPT FOR CURSOR â€” 9 Content/Config/UI Updates (single pass)
+================================================================================
+ROLE: Focused content, config, and small UI fix pass on this existing codebase
+(@Codebase, @Homepage.jsx attached â€” also reference the Contact form component
+and any file containing the Google Maps <iframe>, which may live in
+Homepage.jsx and/or RemainingPages.jsx's ContactPage depending on current
+structure).
+
+ABSOLUTE BOUNDARIES:
+- Do NOT touch calculation logic, routing, lead-capture state machine, or any
+  animation/layout system beyond what each numbered task explicitly asks for.
+- Every task below is independent â€” completing one must not alter markup,
+  styling, or behavior unrelated to that specific task.
+- Preserve all existing accessibility attributes throughout.
+
+--------------------------------------------------------------------------
+1. HERO BACKGROUND IMAGE SWAP
+--------------------------------------------------------------------------
+The hero background image file will be placed at public/gurukrupa_hero_bg.png
+(note: .png, not .jpg â€” use the correct extension matching the actual file
+placed in public/).
+
+Locate the hero section's current background-image declaration (currently
+pointing at an Unsplash URL or similar external source from the v0
+integration). Replace ONLY the image URL/source with '/gurukrupa_hero_bg.png'.
+
+Do NOT touch, regenerate, or reorder any of the following existing layers â€”
+they must render exactly as before, just on top of the new photo:
+  - The dark navy gradient overlay (rgba(10,37,64,...) layers)
+  - The amber radial glow layer
+  - The animated energy-grid line/node overlay
+  - Any 3D/glassmorphic floating card elements in the hero
+Confirm background-size: cover and background-position: center (or the
+Tailwind/CSS equivalent already in use) are preserved so the new image fills
+the section correctly at all viewport widths.
+
+--------------------------------------------------------------------------
+2-5. STAT TEXT UPDATES
+--------------------------------------------------------------------------
+Find and update these 4 stat values. Search for the CURRENT text by concept
+(exact current wording may have drifted slightly from what's listed below â€”
+match on the number/subject, not necessarily character-for-character):
+
+  "10+ yrs experience"                          â†’ "28+ yrs experience"
+  "500+ happy customers"                        â†’ "1230+ happy customers"
+  "<24 hrs Site assessment turnaround"          â†’ "<48 hrs Site assessment turnaround"
+  "1.9 MW in last 2 months" (or similar wording
+   referring to the residential installation
+   milestone stat)                              â†’ "1.9 MW in last 5 months"
+
+Change ONLY the text content of these 4 stat values. Do not touch their
+surrounding card markup, icons, counter animations, or styling in any way.
+
+--------------------------------------------------------------------------
+6. REAL WHATSAPP ICON (inline SVG â€” do NOT use lucide-react for this)
+--------------------------------------------------------------------------
+Lucide-react does not include brand/logo icons (WhatsApp, Facebook, etc. are
+explicitly out of scope for that library) â€” do not attempt to import a
+"Whatsapp" icon from lucide-react, it does not exist and will break the build.
+
+Locate the floating WhatsApp button (currently using a generic chat-bubble
+icon, likely MessageCircle from lucide-react). Replace ONLY the icon element
+inside that button with this verified inline SVG (sourced from Bootstrap
+Icons, MIT licensed), recolored to white to sit on the button's existing
+green background:
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24"
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    className="text-white"
+    aria-hidden="true"
+  >
+    <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+  </svg>
+
+Keep an aria-label (e.g. "Chat with us on WhatsApp") on the parent button
+element â€” do not rely on the SVG alone for accessibility, since aria-hidden
+is set on it. Do not change the button's position, size, background color,
+link href, or hover behavior â€” only the icon inside it.
+
+--------------------------------------------------------------------------
+7. CONTACT FORM VALIDATION
+--------------------------------------------------------------------------
+Locate the Contact form's validation logic (likely a `canSend` or similar
+derived boolean checking form.name/form.email/form.message). Update it so:
+  - Name: required (unchanged)
+  - Phone: required (currently optional â€” change this to required)
+  - Message: required (unchanged)
+  - Email: change from required to OPTIONAL
+Update the submit button's disabled condition to match this new rule.
+Update any visual "required" indicator (asterisk, label styling) on each
+field to reflect the new requirement state â€” Phone should now show as
+required, Email should now show as optional.
+
+--------------------------------------------------------------------------
+8. GOOGLE MAPS COORDINATES UPDATE
+--------------------------------------------------------------------------
+Find every Google Maps <iframe> embed in the codebase (there may be more than
+one instance â€” check both Homepage.jsx and RemainingPages.jsx's ContactPage).
+Update the coordinates in the iframe src URL and any adjacent "Open in Google
+Maps" link to:
+  Latitude: 23.247090969260054
+  Longitude: 69.70118065865935
+Preserve the existing embed format/parameters (zoom level, output=embed,
+etc.) â€” only replace the lat/long values.
+
+--------------------------------------------------------------------------
+9. REMOVE CLIENTS LOGO TICKER SECTION
+--------------------------------------------------------------------------
+In Homepage.jsx, completely remove the "Clients: Trusted by businesses across
+Kutch" section â€” the entire section including its heading, subheading, and
+logo grid/ticker, not just the heading text.
+
+Also remove the "Clients" nav link item from Homepage.jsx's navbar (both
+desktop nav and mobile drawer) â€” it currently anchors to this section (likely
+#clients), and would become a dead link once the section is removed.
+
+Do NOT touch RemainingPages.jsx's separate "Clients" tab on the /quote page â€”
+that is a distinct, still-functional page and is explicitly OUT of scope for
+this task.
+
+--------------------------------------------------------------------------
+AFTER ALL 9 TASKS:
+--------------------------------------------------------------------------
+- Confirm the hero renders correctly with the new photo and all existing
+  overlay/glow/glass layers intact.
+- Confirm all 4 stat numbers show the new values.
+- Confirm the WhatsApp button shows the real recognizable logo shape, not a
+  broken icon or build error.
+- Confirm the Contact form now blocks submission without Name/Phone/Message
+  but allows submission with Email left blank.
+- Confirm the map on both Homepage and the Contact tab points to the new
+  coordinates.
+- Confirm no dead "Clients" nav link remains on Homepage, and confirm
+  RemainingPages.jsx is completely untouched.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-11T17:29:03+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\ADMIN\Desktop\Gurukrupa_Website\frontend\src\Homepage.jsx (LANGUAGE_JAVASCRIPT)
+Cursor is on line: 181
+Other open documents:
+- c:\Users\ADMIN\Desktop\Gurukrupa_Website\frontend\src\Homepage.jsx (LANGUAGE_JAVASCRIPT)
+- c:\Users\ADMIN\Desktop\Gurukrupa_Website\Pricing_Logic.md (LANGUAGE_MARKDOWN)
+Running terminal commands:
+- npm run dev -- --host (in c:\Users\ADMIN\Desktop\Gurukrupa_Website\backend, running for 4h9m15s)
+- npm run dev -- --host (in c:\Users\ADMIN\Desktop\Gurukrupa_Website\frontend, running for 4h9m11s)
+</ADDITIONAL_METADATA>

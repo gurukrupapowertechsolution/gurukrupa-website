@@ -1,0 +1,36 @@
+{
+  "name": "gurukrupa-powertech-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend API and Calculation Engine for Gurukrupa Powertech Solutions",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
+    "build": "tsc -p .",
+    "start": "node dist/server.js",
+    "test": "ts-node calculation-engine/__tests__/modules.worked-examples.test.ts && ts-node calculation-engine/__tests__/systemSizing.test.ts && ts-node calculation-engine/__tests__/pricing-engine.test.ts",
+    "hash-password": "ts-node scripts/hashAdminPassword.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "nodemailer": "^9.0.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.14.2",
+    "@types/nodemailer": "^8.0.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
+  }
+}

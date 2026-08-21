@@ -1,0 +1,155 @@
+# ============================================================================
+# render.yaml — Render Blueprint for the Gurukrupa Powertech platform
+#
+# WHAT THIS FILE IS
+# Render can read this file and create both services with every setting already
+# correct, instead of you typing them into forms. It is optional: the dashboard
+# walkthrough produces exactly the same result. Its real value is that it is the
+# authoritative record of how this project is deployed — if a service is ever
+# misconfigured, compare it against this file.
+#
+# HOW TO USE IT
+#   Render Dashboard → New → Blueprint → connect this repository → Apply.
+#   Render reads this file, creates both services, and prompts you once for
+#   every secret marked `sync: false`.
+#
+# WHY THE SECRETS ARE NOT IN HERE
+# This file is committed to Git. Anything written in it is visible to anyone who
+# can read the repository, forever, including in its history. `sync: false`
+# means "ask the human for this value in the dashboard and store it encrypted" —
+# so the API keys and passwords never touch the repository.
+# ============================================================================
+
+services:
+  # --------------------------------------------------------------------------
+  # BACKEND — Node/Express API + calculation and pricing engines
+  # --------------------------------------------------------------------------
+  - name: gurukrupa-api
+    type: web
+    runtime: node
+    region: singapore          # Closest Render region to Gujarat.
+    plan: starter              # NOT free: free instances sleep after 15 minutes
+                               # idle and take ~50s to wake, so the first
+                               # customer of the morning would see a blank page.
+    rootDir: backend           # The repo holds two projects. Without this,
+                               # Render builds the wrong one.
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /health   # Render polls this and refuses to route traffic
+                               # to an instance that is not answering.
+
+    envVars:
+      # --- Secrets: Render prompts for these once, at Blueprint creation ---
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: ADMIN_PASSWORD_HASH        # Generate: npm run hash-password -- "your-password"
+        sync: false
+      - key: ADMIN_JWT_SECRET           # Generate: node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+
+      # --- Not secret, but environment-specific ---
+      - key: SUPABASE_URL
+        sync: false                     # Yours, but harmless if seen.
+      - key: SMTP_USER
+        sync: false
+      - key: LEAD_NOTIFY_EMAIL
+        sync: false
+
+      # CORS is the list of websites allowed to call this API. Left empty, the
+      # server logs a warning and accepts anyone — which in production would let
+      # a stranger's site drive your calculator.
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://gurukrupapowertechsolution.in,https://www.gurukrupapowertechsolution.in
+
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_JWT_EXPIRES_IN
+        value: 12h
+      - key: ADMIN_LEADS_PAGE_SIZE
+        value: "500"
+      - key: SUPABASE_TIMEOUT_MS
+        value: "8000"
+
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+
+      # ⚠ Render's disk is EPHEMERAL — wiped on every deploy and restart.
+      # This append-only file still does its job (surviving a brief Supabase
+      # outage within one instance's life) but must not be treated as durable
+      # storage. Supabase is the source of truth; see leadStore.service.ts.
+      - key: LEAD_FALLBACK_FILE
+        value: data/leads-fallback.jsonl
+
+      # --- Calculation constants (Document 3 §8) ---
+      - key: CALC_COST_PER_UNIT_RS
+        value: "6"
+      - key: CALC_AVERAGE_BILL_MARGIN_PCT
+        value: "0.10"
+      - key: CALC_SOLAR_GENERATION_PER_KW
+        value: "4.5"
+      - key: CALC_THREE_PHASE_DURATION_DAYS
+        value: "30"
+      - key: CALC_ONE_PHASE_DURATION_DAYS
+        value: "60"
+      - key: CALC_ONE_PHASE_CAPACITY_FACTOR_PCT
+        value: "0.15"
+      - key: CALC_BATTERY_POWER_FACTOR
+        value: "0.9"
+      - key: CALC_SOLAR_POWER_FACTOR
+        value: "0.8"
+
+      # --- Pricing (Document 3 §12 + Finalization Pass) ---
+      - key: PRICE_BATTERY_RATE_51_2_AH100
+        value: "66240"
+      - key: PRICE_BATTERY_RATE_25_2_AH100
+        value: "36940"
+      - key: PRICE_STRUCTURE_RATE_PER_KW
+        value: "1200"
+      - key: PRICE_INVERTER_RATE_PLACEHOLDER
+        value: "15000"        # ⚠ STILL A PLACEHOLDER — real UTL/Solaryaan/
+                              # Polycab rates were never supplied. Quotations
+                              # carry this figure until the business confirms.
+      - key: PRICE_BASE_MARKUP_PCT
+        value: "20"
+      - key: GST_CORE_PCT
+        value: "5"
+      - key: GST_OTHER_PCT
+        value: "18"
+      - key: PRICE_HYBRID_WIRING_PER_KW
+        value: "3000"
+      - key: PRICE_EXTRA_GST_RS
+        value: "0"
+      - key: PRICE_EXTRA_HOUSE_WIRING_RS
+        value: "0"
+
+  # --------------------------------------------------------------------------
+  # FRONTEND — React/Vite static build
+  # --------------------------------------------------------------------------
+  - name: gurukrupa-site
+    type: web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+
+    # Without this rule the site half-works in a way that is easy to miss:
+    # clicking a link to /quote is fine, but REFRESHING that page — or opening
+    # a link shared on WhatsApp — asks the server for a file named /quote that
+    # does not exist, and returns Not Found. The rule says "for any address,
+    # serve the app and let it decide which page to show".
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+    envVars:
+      # Baked into the JavaScript at BUILD time, not read at run time — so
+      # changing it requires a redeploy, not just a restart. Without it the
+      # pages fall back to http://localhost:4000, which exists only on a
+      # developer's laptop, and the calculator fails silently for every visitor.
+      - key: VITE_API_BASE_URL
+        value: https://api.gurukrupapowertechsolution.in

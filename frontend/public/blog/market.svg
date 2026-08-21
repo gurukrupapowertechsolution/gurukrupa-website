@@ -1,0 +1,63 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Solar module price trend illustration">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A2540"/><stop offset="55%" stop-color="#123A63"/><stop offset="100%" stop-color="#0C2A4A"/>
+    </linearGradient>
+    <linearGradient id="gold4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFD166"/><stop offset="100%" stop-color="#F5A623"/>
+    </linearGradient>
+    <linearGradient id="fall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F5A623" stop-opacity="0.34"/><stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow4" cx="82%" cy="18%" r="48%">
+      <stop offset="0%" stop-color="#F5A623" stop-opacity="0.20"/><stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots4" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="1.6" fill="#FFFFFF" fill-opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg4)"/>
+  <rect width="1200" height="800" fill="url(#dots4)"/>
+  <rect width="1200" height="800" fill="url(#glow4)"/>
+
+  <!-- axes -->
+  <line x1="150" y1="640" x2="1060" y2="640" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="5" stroke-linecap="round"/>
+  <line x1="150" y1="180" x2="150" y2="640" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- gridlines -->
+  <g stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="3">
+    <line x1="150" y1="530" x2="1060" y2="530"/>
+    <line x1="150" y1="420" x2="1060" y2="420"/>
+    <line x1="150" y1="310" x2="1060" y2="310"/>
+  </g>
+
+  <!-- falling price area -->
+  <path d="M180 250 C 340 288, 430 452, 560 486 C 700 522, 820 556, 1020 578 L1020 640 L180 640 Z" fill="url(#fall)"/>
+  <path d="M180 250 C 340 288, 430 452, 560 486 C 700 522, 820 556, 1020 578"
+        fill="none" stroke="url(#gold4)" stroke-width="9" stroke-linecap="round"/>
+
+  <!-- data points -->
+  <g fill="#0A2540" stroke="url(#gold4)" stroke-width="6">
+    <circle cx="180" cy="250" r="14"/>
+    <circle cx="560" cy="486" r="14"/>
+    <circle cx="1020" cy="578" r="14"/>
+  </g>
+
+  <!-- module glyph -->
+  <g transform="translate(806,196)">
+    <rect x="-6" y="-6" width="236" height="164" rx="12" fill="#0A2540" stroke="#3FD0C9" stroke-width="4" stroke-opacity="0.75"/>
+    <g fill="#3FD0C9" opacity="0.55">
+      <rect x="16"  y="16" width="60" height="42" rx="4"/>
+      <rect x="86"  y="16" width="60" height="42" rx="4"/>
+      <rect x="156" y="16" width="60" height="42" rx="4"/>
+      <rect x="16"  y="70" width="60" height="42" rx="4"/>
+      <rect x="86"  y="70" width="60" height="42" rx="4"/>
+      <rect x="156" y="70" width="60" height="42" rx="4"/>
+    </g>
+  </g>
+
+  <!-- rupee tag -->
+  <circle cx="196" cy="190" r="52" fill="#0A2540" stroke="url(#gold4)" stroke-width="5"/>
+  <text x="196" y="216" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700" fill="url(#gold4)">₹</text>
+</svg>

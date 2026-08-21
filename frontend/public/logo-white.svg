@@ -1,0 +1,73 @@
+<svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gurukrupa Powertech Solutions logo">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5A623"/>
+      <stop offset="100%" stop-color="#D98D0F"/>
+    </linearGradient>
+    <linearGradient id="ecoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5A623"/>
+      <stop offset="100%" stop-color="#1E9E63"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Transparent background (no rect painted) -->
+
+  <!-- ===== ICON MARK ===== -->
+
+  <!-- Roofline silhouette -->
+  <path d="M100 178 L250 55 L400 178"
+        fill="none" stroke="#FFFFFF" stroke-width="16"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Solar panel grid on left roof slope -->
+  <g transform="translate(118,150) rotate(-39)">
+    <rect x="0"  y="0"  width="34" height="18" rx="2" fill="url(#goldGrad)" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"/>
+    <rect x="40" y="0"  width="34" height="18" rx="2" fill="url(#goldGrad)" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"/>
+    <rect x="80" y="0"  width="34" height="18" rx="2" fill="url(#goldGrad)" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"/>
+    <rect x="0"  y="24" width="34" height="18" rx="2" fill="url(#goldGrad)" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"/>
+    <rect x="40" y="24" width="34" height="18" rx="2" fill="url(#goldGrad)" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"/>
+    <rect x="80" y="24" width="34" height="18" rx="2" fill="url(#goldGrad)" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"/>
+  </g>
+
+  <!-- Wind turbine -->
+  <line x1="340" y1="178" x2="355" y2="62" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+  <g transform="translate(355,60) rotate(-15)">
+    <g transform="rotate(0)">
+      <path d="M0 0 C -5 -15,-3 -39,0 -44 C 3 -39,5 -15,0 0 Z" fill="url(#goldGrad)"/>
+    </g>
+    <g transform="rotate(120)">
+      <path d="M0 0 C -5 -15,-3 -39,0 -44 C 3 -39,5 -15,0 0 Z" fill="url(#ecoGrad)"/>
+    </g>
+    <g transform="rotate(240)">
+      <path d="M0 0 C -5 -15,-3 -39,0 -44 C 3 -39,5 -15,0 0 Z" fill="url(#goldGrad)"/>
+    </g>
+  </g>
+  <circle cx="355" cy="60" r="6.5" fill="url(#goldGrad)"/>
+
+  <!-- Circuit-trace accent -->
+  <path d="M130 196 L185 196 L185 210 L295 210 L295 196 L350 196"
+        fill="none" stroke="#D98D0F" stroke-width="3.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="130" cy="196" r="4.5" fill="#D98D0F"/>
+  <circle cx="350" cy="196" r="4.5" fill="#D98D0F"/>
+
+  <!-- ===== WORDMARK ===== -->
+
+  <text x="250" y="250" text-anchor="middle"
+        font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif"
+        font-weight="800" font-size="46" letter-spacing="4" fill="#FFFFFF">
+    GURUKRUPA
+  </text>
+
+  <text x="250" y="292" text-anchor="middle"
+        font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif"
+        font-weight="800" font-size="28" letter-spacing="2" fill="#FFFFFF">
+    POWERTECH SOLUTIONS
+  </text>
+
+  <text x="250" y="320" text-anchor="middle"
+        font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif"
+        font-weight="600" font-size="13" letter-spacing="1.5" fill="#9C6509">
+    SOLAR EPC  •  ROOFTOP SOLAR  •  WIND ENERGY
+  </text>
+</svg>

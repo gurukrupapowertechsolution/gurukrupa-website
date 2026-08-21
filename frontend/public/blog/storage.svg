@@ -1,0 +1,48 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Battery energy storage and evening demand peak illustration">
+  <defs>
+    <linearGradient id="bg6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A2540"/><stop offset="55%" stop-color="#123A63"/><stop offset="100%" stop-color="#0C2A4A"/>
+    </linearGradient>
+    <linearGradient id="gold6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFD166"/><stop offset="100%" stop-color="#F5A623"/>
+    </linearGradient>
+    <linearGradient id="charge" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#1E9E63"/><stop offset="100%" stop-color="#3FD0C9"/>
+    </linearGradient>
+    <radialGradient id="glow6" cx="70%" cy="80%" r="52%">
+      <stop offset="0%" stop-color="#3FD0C9" stop-opacity="0.20"/><stop offset="100%" stop-color="#3FD0C9" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots6" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="1.6" fill="#FFFFFF" fill-opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg6)"/>
+  <rect width="1200" height="800" fill="url(#dots6)"/>
+  <rect width="1200" height="800" fill="url(#glow6)"/>
+
+  <!-- duck curve: solar bell + evening ramp -->
+  <line x1="120" y1="600" x2="700" y2="600" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="5" stroke-linecap="round"/>
+  <path d="M140 380 C 220 380, 250 250, 330 250 C 410 250, 430 380, 500 400 C 560 418, 590 300, 640 220 L 680 190"
+        fill="none" stroke="url(#gold6)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <path d="M140 460 C 240 460, 260 540, 380 548 C 470 554, 520 520, 600 420 C 640 372, 660 300, 680 250"
+        fill="none" stroke="#3FD0C9" stroke-width="7" stroke-linecap="round" stroke-dasharray="18 14" opacity="0.8"/>
+  <text x="300" y="222" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600" fill="url(#gold6)">MIDDAY SOLAR</text>
+  <text x="612" y="648" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600" fill="#3FD0C9">EVENING PEAK</text>
+
+  <!-- battery -->
+  <g transform="translate(790,270)">
+    <rect x="0" y="0" width="290" height="330" rx="26" fill="#0A2540" stroke="#FFFFFF" stroke-opacity="0.26" stroke-width="6"/>
+    <rect x="106" y="-26" width="78" height="26" rx="9" fill="#FFFFFF" fill-opacity="0.3"/>
+    <rect x="28" y="180" width="234" height="52" rx="10" fill="url(#charge)"/>
+    <rect x="28" y="114" width="234" height="52" rx="10" fill="url(#charge)" opacity="0.72"/>
+    <rect x="28" y="48"  width="234" height="52" rx="10" fill="url(#charge)" opacity="0.34"/>
+    <rect x="28" y="246" width="234" height="52" rx="10" fill="url(#charge)"/>
+  </g>
+
+  <!-- bolt badge -->
+  <circle cx="935" cy="436" r="66" fill="#0A2540" fill-opacity="0.86" stroke="url(#gold6)" stroke-width="5"/>
+  <path d="M950 396 L910 442 L936 442 L920 480 L960 432 L934 432 Z" fill="url(#gold6)"/>
+
+  <text x="935" y="662" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF" fill-opacity="0.5" letter-spacing="3">STORAGE</text>
+</svg>

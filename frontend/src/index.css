@@ -1,0 +1,435 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* The header is fixed at h-24 (6rem), so an in-page jump to #products or
+     #projects would otherwise park the target's first lines underneath it.
+     Declared in @layer base so a per-element scroll-mt-* utility still wins. */
+  [id] {
+    scroll-margin-top: 6.5rem;
+  }
+
+  /* Brand tokens.
+     Page components (Homepage, ProjectsGallery, Blog, …) redeclare these on
+     their own `.gps-root` wrapper, but chrome that lives OUTSIDE those wrappers
+     — Header, Footer — had no value to resolve against. Declaring them on
+     :root gives every route the same palette. */
+  :root {
+    --color-primary: #f5a623;
+    --color-primary-dark: #d98d0f;
+    --color-primary-text: #9c6509;
+    --color-secondary: #0a2540;
+    --color-bg: #f4f6fb;
+    --color-text: #1c1f26;
+    --color-text-muted: #5a6270;
+    --color-border: #e2e5ea;
+
+    /* ── Elevation scale ──────────────────────────────────────────────────
+       Every level is three stacked shadows rather than one, because that is
+       what separates a surface that looks lifted from one that looks like it
+       has a grey blur under it:
+         · a tight contact shadow, for the edge where the card meets the page
+         · a mid diffuse shadow, for the body of the cast
+         · a wide ambient shadow, for the room light
+       All three are tinted with the brand navy instead of black — a neutral
+       black shadow over a blue-tinted page reads as dirt. */
+    --elev-1:
+      0 1px 2px rgba(10, 37, 64, 0.05),
+      0 2px 6px -1px rgba(10, 37, 64, 0.07),
+      0 6px 16px -6px rgba(10, 37, 64, 0.08);
+    --elev-2:
+      0 1px 2px rgba(10, 37, 64, 0.05),
+      0 6px 14px -4px rgba(10, 37, 64, 0.10),
+      0 18px 40px -12px rgba(10, 37, 64, 0.14);
+    --elev-3:
+      0 2px 4px rgba(10, 37, 64, 0.06),
+      0 12px 26px -8px rgba(10, 37, 64, 0.14),
+      0 32px 64px -18px rgba(10, 37, 64, 0.20);
+    --elev-4:
+      0 2px 6px rgba(10, 37, 64, 0.07),
+      0 20px 44px -12px rgba(10, 37, 64, 0.18),
+      0 48px 96px -24px rgba(10, 37, 64, 0.26);
+
+    /* The lit top edge. A raised physical panel catches light on its top
+       bevel; without this the card is just a rectangle with a shadow. */
+    --bevel-light: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+    --bevel-light-dark: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+    /* Raised surfaces are never flat #fff — a top-lit gradient is most of the
+       three-dimensionality, the shadow only finishes it. */
+    --surface-raised: linear-gradient(163deg, #ffffff 0%, #fdfdff 42%, #f6f8fd 100%);
+    --surface-sunken: linear-gradient(163deg, #f4f6fb 0%, #eef1f9 100%);
+    --surface-dark-raised: linear-gradient(163deg, #143a63 0%, #0a2540 100%);
+
+    --ring-gold: 0 0 0 1px rgba(245, 166, 35, 0.22);
+    --glow-gold-soft: 0 0 28px rgba(245, 166, 35, 0.16);
+  }
+}
+
+/* ── Global page scale ──────────────────────────────────────────────────────
+   The site rendered a touch large — comfortable, but every page felt zoomed in
+   by a step. `.page-scale` takes the whole app down to 93%.
+
+   Why `zoom` and not the two obvious alternatives:
+
+     · `html { font-size: 15px }` is the usual trick and it cannot work here.
+       Tailwind's rem-based utilities all resolve against the ROOT font size, so
+       there is no way to exempt a subtree — and the hero has to stay at full
+       size. A local font-size does nothing to a rem.
+     · `transform: scale(.93)` does not affect layout, so the element keeps its
+       unscaled box: a 7% gap down the right edge, a stale scroll height, and
+       hit targets offset from what is drawn.
+
+   `zoom` scales layout itself, which is exactly what is wanted, and it composes
+   multiplicatively down the tree — which is what makes the hero exemption a
+   one-liner rather than a refactor. It is ignored by pre-126 Firefox, where the
+   page simply renders at 100%: the styling is unaffected, so that degrades
+   gracefully rather than breaking.
+
+   ⚠ The two values below are reciprocals and must stay that way. `.page-scale`
+   is 0.93, so the hero multiplies back by 1/0.93 = 1.0753 to land at an
+   effective 1.0. Change one and you must change the other, or the hero stops
+   being full size — which is the one thing this is required not to do. They are
+   kept adjacent here rather than split across files for that reason (the
+   .hero-carousel rule in Homepage.jsx deliberately does not set zoom). */
+.page-scale { zoom: 0.93; }
+
+/* Hero exemption. 0.93 × 1.0753 = 1.0000, so this section alone renders at true
+   size — including its `min-height: 100vh`, which resolves against the real
+   viewport and would otherwise come out 7% short of full bleed. */
+.hero-carousel { zoom: 1.0753; }
+
+/* ── Site container ─────────────────────────────────────────────────────────
+   Replaces the `max-w-7xl mx-auto px-6 md:px-10` that every section used to
+   repeat. That capped layout at 1280px, which left ~640px of dead margin on a
+   1920px display and over a third of the screen empty at 2560px. This spans the
+   full viewport and grows its gutter instead, so content scales with the screen
+   rather than pooling in the middle.
+
+   Defined outside @layer so it beats any Tailwind width/padding utility left on
+   the same element regardless of class order. */
+.container-site {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .container-site { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .container-site { padding-left: 2.5rem; padding-right: 2.5rem; }
+}
+@media (min-width: 1536px) {
+  .container-site { padding-left: 4rem; padding-right: 4rem; }
+}
+@media (min-width: 1920px) {
+  .container-site { padding-left: 5rem; padding-right: 5rem; }
+}
+
+/* Same gutters, but capped at a reading measure. Long-form running text — the
+   article body on /blog/:slug — is the one place a full-bleed column is a
+   regression rather than a fix: at 1920px wide, body copy would run past 250
+   characters a line. Everything that is layout rather than prose uses
+   .container-site above. */
+.container-narrow {
+  width: 100%;
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .container-narrow { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .container-narrow { padding-left: 2.5rem; padding-right: 2.5rem; }
+}
+
+/* Prose measure for body copy that sits inside a full-bleed .container-site —
+   currently the FAQ answers, which would otherwise inherit the page's full
+   width. */
+.prose-measure { max-width: 78ch; }
+
+/* ── 3D surface system ──────────────────────────────────────────────────────
+   Four composable pieces. Stack them rather than writing bespoke shadows per
+   component, so depth stays consistent between the homepage, the calculator and
+   the blog instead of drifting apart:
+
+     .surface-3d   raised opaque panel   (most cards)
+     .glass-3d     raised translucent    (over photography or gradients)
+     .lift-3d      hover float           (anything clickable)
+     .depth-ring   gold edge + glow      (the one card you want looked at)
+
+   Everything animates transform/box-shadow only, and every hover is disabled
+   under prefers-reduced-motion at the bottom of this block. */
+
+.surface-3d {
+  background: var(--surface-raised);
+  border: 1px solid rgba(226, 229, 234, 0.9);
+  box-shadow: var(--elev-2), var(--bevel-light);
+}
+
+.surface-3d-flat {
+  background: var(--surface-raised);
+  border: 1px solid rgba(226, 229, 234, 0.9);
+  box-shadow: var(--elev-1), var(--bevel-light);
+}
+
+/* Translucent sibling. Only for surfaces with something worth seeing behind
+   them — over a plain background a backdrop-filter costs a compositor pass and
+   buys nothing. */
+.glass-3d {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--elev-2), var(--bevel-light);
+}
+
+/* Dark counterpart, for panels sitting on the navy sections. */
+.glass-3d-dark {
+  background: rgba(10, 37, 64, 0.55);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: var(--elev-3), var(--bevel-light-dark);
+}
+
+/* The float. Deliberately understated — 4px and a shadow that grows downward,
+   which reads as the card rising toward the viewer. Larger travel starts to
+   look like the card is jumping rather than lifting. */
+.lift-3d {
+  transition:
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.32s ease;
+  will-change: transform;
+}
+.lift-3d:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--elev-3), var(--bevel-light);
+  border-color: rgba(245, 166, 35, 0.34);
+}
+.lift-3d:active { transform: translateY(-1px); }
+
+/* Stronger float for feature cards that are the point of their section. */
+.lift-3d-lg {
+  transition:
+    transform 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.36s ease;
+  will-change: transform;
+}
+.lift-3d-lg:hover {
+  transform: translateY(-8px) scale(1.012);
+  box-shadow: var(--elev-4), var(--bevel-light), var(--glow-gold-soft);
+  border-color: rgba(245, 166, 35, 0.42);
+}
+.lift-3d-lg:active { transform: translateY(-2px) scale(1); }
+
+.depth-ring {
+  box-shadow: var(--elev-3), var(--ring-gold), var(--bevel-light);
+}
+
+/* Photographs read as objects rather than as holes in the page when they carry
+   their own contact shadow and a hairline inner edge. */
+.photo-3d {
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--elev-3);
+}
+.photo-3d::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+  pointer-events: none;
+}
+
+/* Section backdrops. A flat fill between two flat fills gives the page no
+   depth at all; these are the soft gradients that separate one band from the
+   next. */
+.band-raised { background: linear-gradient(180deg, #ffffff 0%, #f7f9fd 100%); }
+.band-sunken { background: linear-gradient(180deg, #eef1f9 0%, #f6f8fd 58%, #ffffff 100%); }
+.band-deep {
+  background:
+    radial-gradient(ellipse 60% 80% at 78% 20%, rgba(245, 166, 35, 0.10) 0%, transparent 62%),
+    linear-gradient(163deg, #0d2b4c 0%, #0a2540 55%, #071a2e 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift-3d, .lift-3d-lg { transition: none !important; }
+  .lift-3d:hover, .lift-3d-lg:hover,
+  .lift-3d:active, .lift-3d-lg:active { transform: none !important; }
+}
+
+/* ── Scroll-entrance reveals ────────────────────────────────────────────────
+   Shared primitives, activated by `useScrollReveal` (src/lib/useScrollReveal.js)
+   adding `.animate-visible` when the element enters the viewport.
+
+   They live here rather than in a page's <style> block because the direction of
+   entry is now a site-wide rule rather than a per-page decision: a photograph
+   placed in the left column enters from the left, one in the right column
+   enters from the right, and anything that is not side-placed rises. A rule
+   that applies on /about and /quote cannot be defined inside Homepage.jsx.
+
+   Travel is deliberately larger on the horizontal pair (56px vs 26px). A
+   sideways slide reads as much shorter than a vertical one at the same
+   distance, because the eye is already tracking a horizontal reading axis.
+
+   ⚠ `.reveal-right` starts 56px to the RIGHT of its resting place, which can
+   widen the document if the host section does not clip. Every render site is
+   inside a container that already carries `overflow: hidden` (`.atmos-host`,
+   `.section-frosted`, or an explicit one). Keep it that way.
+
+   Easing is decelerate-only — nearly all the distance is covered early and it
+   glides to a stop. The blur-and-scale reveal this replaces was rejected for
+   being harsh: resolving a large photograph out of a gaussian makes the eye try
+   to focus something that cannot be focused yet, and it forces a full raster
+   repaint per frame, which is the one thing here that cannot ride the
+   compositor. Only opacity and transform animate below. */
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-scale {
+  opacity: 0;
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal-up { transform: translate3d(0, 26px, 0); }
+.reveal-left { transform: translate3d(-56px, 0, 0); }
+.reveal-right { transform: translate3d(56px, 0, 0); }
+.reveal-scale { transform: scale(0.96); }
+
+.reveal-up.animate-visible,
+.reveal-left.animate-visible,
+.reveal-right.animate-visible,
+.reveal-scale.animate-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The observer bails out under this setting, so nothing would ever add
+     `.animate-visible` — the resting state has to be the visible one or the
+     content would simply never appear. */
+  .reveal-up,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Counting numerals. Tabular figures so a stat ticking 0 → 1230 does not
+   resize its own card on every frame. */
+.count-up {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Token utilities used by the persistent chrome (Header / Footer). Page style
+   blocks redeclare these with identical values; these are the fallback for
+   routes whose page component does not. */
+.bg-primary-token { background: var(--color-primary); }
+.text-primary-token { color: var(--color-primary); }
+.text-eyebrow-token { color: var(--color-primary-text); }
+.bg-secondary-token { background: var(--color-secondary); }
+.text-secondary-token { color: var(--color-secondary); }
+.text-muted-token { color: var(--color-text-muted); }
+.border-token { border-color: var(--color-border); }
+.focus-ring:focus-visible { outline: 2.5px solid var(--color-primary); outline-offset: 2px; }
+
+/* ── FAQ accordion ──────────────────────────────────────────────────────
+   Lives here rather than in a component <style> block because the /faq page
+   renders one accordion per category — seven copies of identical CSS was the
+   alternative. */
+
+/* Phase 2 — staggered entry reveal, applied to a wrapper around each item.
+   FaqAccordion adds .is-revealed from its own IntersectionObserver and then
+   stops watching that row, so the cascade runs once rather than replaying on
+   every scroll past.
+
+   Default state is hidden, so a row that is never observed would stay invisible
+   — which is why the reduced-motion branch resets opacity rather than only
+   cancelling the animation, and why the component bails out of the observer
+   entirely under that setting. */
+.faq-reveal { opacity: 0; }
+.faq-reveal.is-revealed {
+  animation: faqReveal .55s cubic-bezier(0.16, 1, 0.3, 1) var(--faq-reveal-delay, 0ms) both;
+}
+@keyframes faqReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-reveal { opacity: 1; }
+  .faq-reveal.is-revealed { animation: none; }
+}
+
+.faq-item {
+  border: 1px solid var(--color-border, #e2e5ea);
+  background: var(--surface-raised);
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease,
+    transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--elev-1), var(--bevel-light);
+}
+.faq-item:hover {
+  border-color: rgba(245, 166, 35, 0.42);
+  transform: translateY(-2px);
+  box-shadow: var(--elev-2), var(--bevel-light);
+}
+/* An open item is the one the visitor is reading — it rises above the stack. */
+.faq-item.is-open {
+  border-color: rgba(245, 166, 35, 0.55);
+  transform: none;
+  box-shadow: var(--elev-3), var(--ring-gold), var(--bevel-light);
+}
+.faq-question {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+}
+.faq-chevron { transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1); }
+.faq-item.is-open .faq-chevron { transform: rotate(180deg); }
+/* Grid-rows trick animates to the answer's natural height without needing a
+   measured pixel value. */
+.faq-answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq-item.is-open .faq-answer-wrap { grid-template-rows: 1fr; }
+.faq-answer { overflow: hidden; }
+/* Search term hit inside a question or answer. */
+.faq-mark {
+  background: rgba(245, 166, 35, 0.30);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer-wrap, .faq-chevron, .faq-item { transition: none !important; }
+  .faq-item:hover { transform: none !important; }
+}
