@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- ?v=2 is deliberate. Browsers cache favicons far more aggressively than
+         they cache pages — without a changed URL, returning visitors keep the
+         old Vite icon for weeks. Bump the number if the icon changes again. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="apple-touch-icon" href="/logo-mark.png" />
 
     <!-- Google Search Console ownership proof. Do not remove: deleting it makes
          Google drop the verification, and with it the sitemap and indexing
