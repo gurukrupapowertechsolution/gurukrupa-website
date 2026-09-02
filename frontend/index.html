@@ -3,11 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- ?v=2 is deliberate. Browsers cache favicons far more aggressively than
-         they cache pages — without a changed URL, returning visitors keep the
-         old Vite icon for weeks. Bump the number if the icon changes again. -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
-    <link rel="apple-touch-icon" href="/logo-mark.png" />
+    <!-- ── Tab icon ───────────────────────────────────────────────────────
+         Generated from public/logo-mark.png, cropped to the emblem alone: the
+         wordmark below it in the full logo is unreadable at 16px and only
+         steals room from the house and turbine, which are what make the mark
+         recognisable at that size.
+
+         The emblem sits on a WHITE rounded plate rather than on transparency.
+         Its house and hub are deep navy, which all but vanishes against a dark
+         browser tab strip. Logo.jsx already solves this exact problem the same
+         way — its `onDark` branch backs the mark with a white plate — so this
+         follows the brand's own established treatment.
+
+         ?v=3 busts the cache: browsers hold favicons far longer than pages, and
+         v1 (Vite's default) and v2 (a placeholder) both shipped. Bump it again
+         if the artwork changes. -->
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png?v=3" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
 
     <!-- Google Search Console ownership proof. Do not remove: deleting it makes
          Google drop the verification, and with it the sitemap and indexing
