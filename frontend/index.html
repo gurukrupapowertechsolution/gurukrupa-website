@@ -1,10 +1,84 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Search Console ownership proof. Do not remove: deleting it makes
+         Google drop the verification, and with it the sitemap and indexing
+         reports. Added 2026-09-02. -->
+    <meta name="google-site-verification" content="0iHt_y3XzuUaDe6KpNHG4opb7mPhxUnKRODpZO0XX0A" />
+
+    <!-- ── What Google and WhatsApp actually read ──────────────────────────
+         Until 2026-09-02 this file carried Vite's starter defaults: the title
+         was the literal word "frontend" and there were no other tags at all.
+         That is what a search result and a shared link were showing.
+
+         Title format is "Brand — what we do | where": the brand first because
+         someone searching "Gurukrupa Powertech" must see it in the first two
+         words, and the city last because "solar Bhuj" and "solar Kutch" are
+         the searches this business actually needs to win. Kept under ~60
+         characters so Google does not truncate it. -->
+    <title>Gurukrupa Powertech Solution — Solar &amp; Inverters, Bhuj</title>
+    <meta
+      name="description"
+      content="Solar, inverter and battery systems engineered for Kachchh. On-Grid and Hybrid installations, PM Surya Ghar subsidy guidance, and a free instant quotation. 28 years of electrical engineering in Bhuj, Gujarat."
+    />
+    <link rel="canonical" href="https://gurukrupapowertechsolution.in/" />
+    <meta name="theme-color" content="#0A2540" />
+
+    <!-- Link previews. Without these, a link pasted into WhatsApp shows a bare
+         URL — which matters more than usual here, because WhatsApp is how this
+         business's customers actually share things. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gurukrupa Powertech Solution" />
+    <meta property="og:title" content="Gurukrupa Powertech Solution — Solar &amp; Inverters, Bhuj" />
+    <meta
+      property="og:description"
+      content="Solar, inverter and battery systems engineered for Kachchh. Get a free instant quotation sized to your actual load."
+    />
+    <meta property="og:url" content="https://gurukrupapowertechsolution.in/" />
+    <meta property="og:image" content="https://gurukrupapowertechsolution.in/logo.png" />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- ── Local business record for Google ────────────────────────────────
+         This is what puts an address, phone number and opening hours into a
+         search result rather than a plain blue link. The values are copied
+         from src/data/businessInfo.js — if that file changes, change this too.
+         They are duplicated rather than generated because Google reads this
+         file before any JavaScript runs. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ElectricalContractor",
+        "name": "Gurukrupa Powertech Solution Private Limited",
+        "alternateName": "Gurukrupa Powertech Solutions",
+        "url": "https://gurukrupapowertechsolution.in/",
+        "image": "https://gurukrupapowertechsolution.in/logo.png",
+        "telephone": "+919725976172",
+        "description": "Solar, inverter, battery and auto-electrical systems for homes and businesses across Kachchh, Gujarat.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Shop No 22, City Center Complex, Near Nad Circle, Junavas, Madhapar",
+          "addressLocality": "Bhuj",
+          "addressRegion": "Gujarat",
+          "postalCode": "370001",
+          "addressCountry": "IN"
+        },
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Kachchh" },
+          { "@type": "AdministrativeArea", "name": "Gujarat" }
+        ],
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "09:00",
+          "closes": "19:00"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Regenerate when routes change: route list is in src/App.jsx,
+     blog slugs are in src/data/blogPosts.js. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://gurukrupapowertechsolution.in/</loc><lastmod>2026-09-02</lastmod><priority>1.0</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/quote</loc><lastmod>2026-09-02</lastmod><priority>0.9</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/roi-calculator</loc><lastmod>2026-09-02</lastmod><priority>0.9</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/about</loc><lastmod>2026-09-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/why-solar</loc><lastmod>2026-09-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/projects</loc><lastmod>2026-09-02</lastmod><priority>0.7</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/faq</loc><lastmod>2026-09-02</lastmod><priority>0.7</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/blog</loc><lastmod>2026-09-02</lastmod><priority>0.7</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/blog/pm-surya-ghar-what-the-numbers-mean-for-a-gujarat-household</loc><lastmod>2026-09-02</lastmod><priority>0.6</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/blog/almm-list-ii-and-what-domestic-cell-rules-mean-for-rooftop-prices</loc><lastmod>2026-09-02</lastmod><priority>0.6</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/blog/gujarat-net-metering-why-the-state-leads-residential-rooftop</loc><lastmod>2026-09-02</lastmod><priority>0.6</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/blog/module-prices-oversupply-and-the-rooftop-buyer</loc><lastmod>2026-09-02</lastmod><priority>0.6</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/blog/green-open-access-commercial-industrial-solar</loc><lastmod>2026-09-02</lastmod><priority>0.6</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/blog/battery-storage-becoming-the-grid-priority</loc><lastmod>2026-09-02</lastmod><priority>0.6</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/privacy-policy</loc><lastmod>2026-09-02</lastmod><priority>0.3</priority></url>
+  <url><loc>https://gurukrupapowertechsolution.in/terms-and-conditions</loc><lastmod>2026-09-02</lastmod><priority>0.3</priority></url>
+</urlset>

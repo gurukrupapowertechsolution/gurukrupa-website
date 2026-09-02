@@ -6,6 +6,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import TermsAndConditions from "./TermsAndConditions";
 import ScrollToTop from "./components/ScrollToTop";
 import QuoteFlowSentinel from "./components/QuoteFlowSentinel";
+import PrivacyNotice from "./components/PrivacyNotice";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Blog from "./pages/Blog";
@@ -61,6 +62,10 @@ export default function App() {
         <div className="page-scale">
           <Footer />
         </div>
+        {/* Portals itself to document.body, so it sits outside `page-scale` and
+            is unaffected by the routes above — it must appear on every page,
+            not just the homepage. */}
+        <PrivacyNotice />
       </div>
     </BrowserRouter>
   );

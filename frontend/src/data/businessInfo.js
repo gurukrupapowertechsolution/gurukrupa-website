@@ -8,6 +8,12 @@
  * addresses. Import from here rather than re-typing — one edit now propagates
  * everywhere.
  *
+ * Settled on 2026-09-02: the single correct number is …76172, confirmed against
+ * the company's own verified Google Business Profile, which lists 097259 76172.
+ * …76717 was the wrong digits all along, not a second line. Voice and WhatsApp
+ * are the same number again — but they stay as separate exports below, because
+ * the site should not have to be re-edited in nine places the day they differ.
+ *
  * PHONE_TEL / WHATSAPP_NUMBER are the digit-only forms the `tel:` and `wa.me`
  * schemes require; PHONE_DISPLAY is the human-readable form and the only one
  * that should ever appear in copy.
@@ -15,12 +21,17 @@
 
 /* ── Contact ─────────────────────────────────────────────────────────────── */
 
-export const PHONE_DISPLAY = '+91 97259 76717';
-export const PHONE_TEL = '+919725976717';
+export const PHONE_DISPLAY = '+91 97259 76172';
+export const PHONE_TEL = '+919725976172';
 export const PHONE_HREF = `tel:${PHONE_TEL}`;
 
-/** wa.me requires country code, no `+`, no spaces. */
-export const WHATSAPP_NUMBER = '919725976717';
+/** wa.me requires country code, no `+`, no spaces.
+ *
+ *  Currently the same digits as PHONE_TEL, and that is correct — one number
+ *  answers both. Kept as its own export anyway: if the business ever adds a
+ *  dedicated WhatsApp line, this is the one value to change, and nothing that
+ *  prints the voice number moves with it. */
+export const WHATSAPP_NUMBER = '919725976172';
 export const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 export const EMAIL = 'sagarbhimani001@gmail.com';

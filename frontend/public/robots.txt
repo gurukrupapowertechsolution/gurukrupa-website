@@ -1,0 +1,9 @@
+# Gurukrupa Powertech Solution — https://gurukrupapowertechsolution.in
+# Allow every search engine to read the whole site, and tell them where the
+# map of it lives. Without this file, crawlers still work, but the sitemap
+# has to be found by hand in Search Console rather than discovered.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://gurukrupapowertechsolution.in/sitemap.xml
