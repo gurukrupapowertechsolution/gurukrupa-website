@@ -145,6 +145,42 @@ const formatINR = (amount) =>
 /* The tab list and the strip that renders it moved to components/FlowTabs.jsx
    so /roi-calculator can render the identical strip — see the note there. */
 
+
+/**
+ * The quoted system capacity, as a badge.
+ *
+ * Sits beside the price rather than inside the header row: the price is the
+ * hero of that card and the capacity is its specification, so they belong on
+ * adjacent lines. Putting it in the header would have it compete with the
+ * logo for the same corner.
+ *
+ * Returns null when there is no capacity. The API omits `systemSizeKw`
+ * entirely rather than sending 0 whenever the engine produced no figure (see
+ * QuotationResponse in the backend), so an absent badge is the correct render
+ * for that case — "0 kW" would be a claim rather than a gap.
+ *
+ * Colours are the gold chip treatment already used for the eyebrow badge on
+ * the homepage finance panel, so this reads as part of the existing system
+ * rather than a new component with its own palette.
+ */
+function CapacityBadge({ kw }) {
+  if (!kw) return null;
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-wide flex-shrink-0"
+      style={{
+        background: 'rgba(245,166,35,0.14)',
+        border: '1px solid rgba(245,166,35,0.38)',
+        color: '#FFD07A',
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
+      }}
+    >
+      <Zap className="w-3 h-3" aria-hidden="true" />
+      {kw} kW system
+    </span>
+  );
+}
+
 export default function GurukrupaPages() {
   const [searchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState(() => {
@@ -1149,14 +1185,20 @@ function QuotationPage() {
                     <p className="text-4xl font-bold font-display mb-1" style={{ color: 'var(--color-primary)', textShadow: '0 0 30px rgba(245,166,35,0.4)' }}>
                       {formatINR(result.estimateCost)}
                     </p>
-                    <p className="text-xs text-white/50">{result.productType.replace("_", " ")} System · Final Estimate Cost</p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <CapacityBadge kw={result.systemSizeKw} />
+                      <p className="text-xs text-white/50">{result.productType.replace("_", " ")} System · Final Estimate Cost</p>
+                    </div>
                   </div>
                 ) : (
                   <>
                     <p className="text-4xl font-bold font-display mb-1" style={{ color: 'var(--color-primary)', textShadow: '0 0 30px rgba(245,166,35,0.4)' }}>
                       {formatINR(result.estimateCost)}
                     </p>
-                    <p className="text-xs text-white/50 mb-4">{result.productType.replace("_", " ")} System · Preliminary estimate</p>
+                    <div className="flex flex-wrap items-center gap-2 mb-4">
+                      <CapacityBadge kw={result.systemSizeKw} />
+                      <p className="text-xs text-white/50">{result.productType.replace("_", " ")} System · Preliminary estimate</p>
+                    </div>
                   </>
                 )}
                 {result.disclaimerNote && (
@@ -1195,17 +1237,32 @@ function QuotationPage() {
                 }}>
                   {formatINR(result.roi.annualSavingsRs)}
                 </p>
+                {/* The capacity is woven into the sentence here rather than
+                    repeated as a second badge: the same number in a pill twice,
+                    in adjacent cards, reads as a rendering mistake. Here it is
+                    doing different work — naming the system that produces the
+                    saving, which is the sentence's missing subject. */}
                 <p className="text-xs text-white/50 mb-5">
-                  saved every year, against a current bill of {formatINR(result.roi.currentYearlyBillRs)}
+                  saved every year
+                  {result.systemSizeKw ? ` from your ${result.systemSizeKw} kW system` : ""},
+                  {" "}against a current bill of {formatINR(result.roi.currentYearlyBillRs)}
                 </p>
 
                 <Link
                   /* Everything the calculator can seed itself from. `savings`
                      is carried so that page can reconcile its flat-95% model
                      against the capacity-derived figure shown here, rather than
-                     quietly contradicting it. The backend does not expose
-                     system capacity, so there is no size to pass. */
-                  to={`/roi-calculator?bill=${Math.round(result.roi.currentYearlyBillRs / 12)}&cost=${Math.round(result.estimateCost)}&savings=${Math.round(result.roi.annualSavingsRs)}`}
+                     quietly contradicting it.
+
+                     `size` joins them as of 2026-09-23. The calculator has always
+                     read a `size` parameter (see RoiCalculator.jsx) but nothing
+                     could supply one, because the quotation response carried no
+                     capacity — so that page re-derived a size from the bill and
+                     could land on a different number from the one quoted here.
+                     Now the quoted capacity travels with the quoted cost and the
+                     two pages agree. Guarded: omit the key rather than send
+                     `size=undefined`, which would parse as a real value. */
+                  to={`/roi-calculator?bill=${Math.round(result.roi.currentYearlyBillRs / 12)}&cost=${Math.round(result.estimateCost)}&savings=${Math.round(result.roi.annualSavingsRs)}${result.systemSizeKw ? `&size=${result.systemSizeKw}` : ""}`}
                   className="focus-ring w-full inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-xs font-semibold transition-all"
                   style={{
                     background: 'linear-gradient(135deg, var(--color-primary) 0%, #FFD700 100%)',

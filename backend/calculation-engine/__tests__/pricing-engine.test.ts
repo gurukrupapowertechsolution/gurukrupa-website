@@ -401,6 +401,10 @@ async function testEngineConstantsStayInternal() {
     "totalCostBeforeSubsidy",
     "subsidyAmount",
     "roi",
+    /* An output, not an intermediate — the capacity being quoted. Added
+       2026-09-23 alongside QuotationResponse.systemSizeKw; the engine
+       constants behind it remain internal and are still covered above. */
+    "systemSizeKw",
   ]);
   for (const key of Object.keys(hybrid)) {
     assert.ok(allowed.has(key), `Unexpected key leaked into the response: ${key}`);

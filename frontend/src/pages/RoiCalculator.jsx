@@ -528,6 +528,23 @@ export default function RoiCalculator() {
           box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
           transition: border-color .2s ease, box-shadow .2s ease;
         }
+        /* Read-only state for the calculated system-size field. Grey ground and
+           a not-allowed cursor say "this is a result, not a question" before
+           anyone clicks it. The text stays at full contrast rather than being
+           dimmed — it is the number the visitor came to see, and greying it out
+           would make the most important figure on the form the hardest to read. */
+        .roi-input-locked {
+          background: #F1F3F7;
+          border-color: rgba(10,37,64,0.14);
+          cursor: not-allowed;
+          box-shadow: none;
+        }
+        .roi-input-locked:focus {
+          border-color: rgba(10,37,64,0.28);
+          box-shadow: 0 0 0 3px rgba(10,37,64,0.08);
+          outline: none;
+        }
+
         .roi-input:focus {
           border-color: var(--color-primary);
           box-shadow: inset 0 2px 4px rgba(0,0,0,0.03), 0 0 0 3px rgba(245,166,35,0.22);
@@ -836,26 +853,34 @@ export default function RoiCalculator() {
                 />
               </Field>
 
-              {/* System size is calculated, never asked for, so the field is
-                  hidden from the form. The input and its state are deliberately
-                  left mounted rather than deleted: `systemSize` is what the
-                  cost-derivation effect above reads, and the draft written to
-                  storage still carries it, so every downstream figure keeps
-                  working exactly as before — only the row is invisible.
+              {/* System size is calculated, never asked for — but it is SHOWN.
+                  It was hidden entirely until 2026-09-23, which solved the wrong
+                  problem: the capacity is the single most important thing about
+                  the system being priced, and a page that quotes an EMI on a
+                  system it never names asks the visitor to trust a number with
+                  no object attached.
 
-                  The one exception is `sizeStatus === 'failed'`. Sizing lives on
-                  the server on purpose (see lib/api.js — the formula is built
-                  from the protected engine constants and must not be duplicated
-                  here), so when that lookup fails there is no capacity and no
-                  cost, and the calculator has nothing to compute. Revealing the
-                  field in that state alone is the only thing standing between an
-                  API hiccup and a permanently dead page; its hint already reads
-                  "enter your system size to continue".
+                  So the row is visible and read-only. The visitor sees what they
+                  are being financed for; they cannot edit it, because the figure
+                  is either the capacity we quoted them or one the server derived
+                  from their bill, and a hand-typed override would silently
+                  decouple the EMI from the quotation.
+
+                  ── The one state where it MUST stay editable ──────────────
+                  `sizeStatus === 'failed'`. Sizing lives on the server on purpose
+                  (see lib/api.js — the formula is built from protected engine
+                  constants and must not be duplicated here), so when that lookup
+                  fails there is no capacity and no cost, and the calculator has
+                  nothing to compute. The field is the only thing standing between
+                  an API hiccup and a permanently dead page, and its hint already
+                  reads "enter your system size to continue". Locking it in that
+                  state would turn a transient outage into a broken page, so
+                  read-only is conditional, never absolute.
 
                   The hint changes with sizeStatus so the field always says where
                   its value came from; a number that fills itself in with no
                   explanation reads as a bug. */}
-              <div className={sizeStatus === 'failed' ? undefined : 'hidden'} aria-hidden={sizeStatus !== 'failed'}>
+              <div>
               <Field
                 label="System size"
                 labelAccessory={
@@ -896,12 +921,21 @@ export default function RoiCalculator() {
                   step="0.5"
                   inputMode="decimal"
                   value={systemSize}
+                  /* readOnly rather than `disabled`: a disabled input is skipped
+                     by keyboard navigation and is not read out by screen
+                     readers, so the visitor would lose the figure entirely
+                     rather than merely being unable to change it. readOnly keeps
+                     it focusable, selectable and copyable — which people do want,
+                     to paste the capacity into a message. */
+                  readOnly={sizeStatus !== 'failed'}
                   onChange={(e) => {
                     setSizeTouched(true);
                     setSystemSize(e.target.value);
                   }}
                   placeholder={sizeStatus === 'loading' ? 'Calculating…' : 'e.g. 5'}
-                  className="roi-input w-full border border-token rounded-md pl-3 pr-12 py-2.5 text-sm text-secondary-token"
+                  className={`roi-input w-full border border-token rounded-md pl-3 pr-12 py-2.5 text-sm text-secondary-token${
+                    sizeStatus !== 'failed' ? ' roi-input-locked' : ''
+                  }`}
                 />
               </Field>
               </div>

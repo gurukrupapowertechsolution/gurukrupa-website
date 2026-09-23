@@ -158,4 +158,18 @@ export interface QuotationResponse {
   totalCostBeforeSubsidy?: number;
   subsidyAmount?: number;
   roi?: RoiResponse;
+
+  /* The sized capacity, in kW — Module C's output on the On-Grid path, the
+     resolved capacity on Hybrid.
+
+     Exposed to the client from 2026-09-23. It is an OUTPUT, not an engine
+     intermediate: it is the system the customer is being quoted for, it
+     already appears on the lead record and in the staff alert email, and a
+     price with no capacity beside it is not a quotation anyone can act on.
+     The constants that produced it stay internal, as before.
+
+     Optional because the engine legitimately produces no capacity on some
+     inputs (see InternalCalculationResult.solarCapacityKw). Absent, not zero:
+     zero would render as "0 kW", which is a claim rather than a gap. */
+  systemSizeKw?: number;
 }

@@ -112,6 +112,19 @@ function sanitizeForClient(
      product produced it. A future product type gets the same treatment for
      free, and cannot silently lose half the panel the way Hybrid did. */
 
+  /* Capacity travels with the price. Guarded rather than defaulted: a missing
+     capacity must leave the key absent so the UI can omit the badge, instead of
+     sending 0 and having the page state the customer is buying a 0 kW system. */
+  if (
+    calculationResult.solarCapacityKw !== undefined &&
+    calculationResult.solarCapacityKw !== null &&
+    calculationResult.solarCapacityKw > 0
+  ) {
+    /* One decimal: the engine emits values like 3.4285714…, and a quotation
+       that prints eight decimal places of capacity reads as a machine error. */
+    response.systemSizeKw = Math.round(calculationResult.solarCapacityKw * 10) / 10;
+  }
+
   if (priceBreakdown.totalCostBeforeSubsidy !== undefined) {
     response.totalCostBeforeSubsidy = Math.round(priceBreakdown.totalCostBeforeSubsidy);
   }
