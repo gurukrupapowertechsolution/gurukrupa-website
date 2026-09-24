@@ -537,12 +537,26 @@ function QuotationPage() {
         return;
       }
 
+      /* ⚠ THIS IS AN ALLOWLIST, NOT A SPREAD — and that has a failure mode.
+         Every field the UI renders must be named here explicitly. A field the
+         backend starts returning is silently dropped until someone adds it to
+         this object, and the symptom is not an error: the component reads
+         `undefined`, renders nothing, and the page looks merely unchanged.
+
+         That is exactly what happened to `systemSizeKw` on 2026-09-23 — the API
+         returned it, the badge was written, and nothing appeared, because the
+         value died here. If you add a field to QuotationResponse in the
+         backend, add it here in the same commit. */
       setResult({
         estimateCost: body.estimateCost,
         productType: body.productType,
         disclaimerNote: body.disclaimerNote || null,
         totalCostBeforeSubsidy: body.totalCostBeforeSubsidy,
         subsidyAmount: body.subsidyAmount,
+        /* Left undefined rather than coerced to 0 when the engine produced no
+           capacity: CapacityBadge treats falsy as "render nothing", and 0 would
+           print "0 kW system" as though it were a specification. */
+        systemSizeKw: body.systemSizeKw,
         roi: body.roi || null,
       });
       setStatus("success");
