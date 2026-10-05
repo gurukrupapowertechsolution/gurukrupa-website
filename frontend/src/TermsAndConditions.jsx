@@ -105,13 +105,18 @@ import useScrollSpy, { useKeepActiveInView } from './lib/useScrollSpy';
  * described here are also stated in src/data/faqData.js. If one changes, both
  * change together — a FAQ that contradicts the T&C is worse than neither.
  *
- * ── Deliberately NOT removed ──────────────────────────────────────────────
+ * ── Advocate review ─────────────────────────────────────────
  *
- * The advocate-review notice at the foot. Content accuracy and legal
- * enforceability are different things; nothing here has been settled by a
- * practising advocate, and under Indian consumer law several of these clauses
- * (limitation of liability in particular) are only as good as their drafting.
- * Remove that block when a lawyer has actually signed off, not before.
+ * The on-page "Pending advocate review" banner was REMOVED on 2026-10-05 at
+ * the business's request. What it said remains true: content accuracy and
+ * legal enforceability are different things, nothing here has been settled by
+ * a practising advocate, and under Indian consumer law several of these
+ * clauses (limitation of liability in particular) are only as good as their
+ * drafting.
+ *
+ * Removing the banner changed what the page says about itself, not its legal
+ * standing. Do not reinstate it without asking — its absence is now a
+ * deliberate decision rather than an oversight.
  */
 
 const EFFECTIVE_DATE = '18 August 2026';
@@ -1752,25 +1757,6 @@ export default function TermsAndConditions() {
                 </div>
               </div>
             </Section>
-
-            {/* ── Advocate review notice ──────────────────────────────────────
-                DELETE THIS BLOCK ONLY once a practising advocate has reviewed
-                and signed off the clauses above. See the file header. */}
-            <div
-              className="rounded-2xl px-5 py-4"
-              style={{ background: 'rgba(245,166,35,0.08)', border: '1.5px solid rgba(245,166,35,0.30)' }}
-            >
-              <p className="flex items-center gap-2 text-sm font-semibold mb-1.5 text-eyebrow-token">
-                <AlertTriangle className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-                Pending advocate review
-              </p>
-              <p className="text-[0.8125rem] leading-relaxed text-muted-token">
-                The commercial and technical content of this page has been verified against our own
-                practice and against the manufacturers&rsquo; published warranty terms. It has not yet
-                been settled by a practising advocate. It is a statement of how we work, not legal
-                advice, and it will be replaced with a lawyer-reviewed version before final launch.
-              </p>
-            </div>
 
             {/* ── Footer link row ─────────────────────────────────────────── */}
             <div className="print-hide flex flex-wrap gap-x-6 gap-y-2 items-center text-sm text-muted-token pt-2">

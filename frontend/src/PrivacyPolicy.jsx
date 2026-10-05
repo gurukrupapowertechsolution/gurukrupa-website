@@ -105,8 +105,12 @@ import useScrollSpy, { useKeepActiveInView } from './lib/useScrollSpy';
  * ⚠ Section numbering is DERIVED from TOC — see the equivalent note in
  * TermsAndConditions.jsx. Never type a section number by hand.
  *
- * ⚠ The advocate-review notice at the foot stays until a practising advocate
- * has signed off. See the equivalent note in TermsAndConditions.jsx.
+ * ⚠ The on-page "Pending advocate review" banner was REMOVED on 2026-10-05 at
+ * the business's request. Removing the banner changed only what the page says
+ * about itself — the sections above still have not been settled by a practising
+ * advocate against the DPDP Act, 2023 and its Rules. Treat the content as
+ * unreviewed until that happens, and do not reinstate the banner without
+ * asking; its absence is now a deliberate decision, not an oversight.
  */
 
 const EFFECTIVE_DATE = '18 August 2026';
@@ -1154,25 +1158,6 @@ export default function PrivacyPolicy() {
                 which cover warranties, the PGVCL process and the subsidy.
               </p>
             </Section>
-
-            {/* ── Advocate review notice ──────────────────────────────────────
-                DELETE THIS BLOCK ONLY once a practising advocate has reviewed
-                and signed off the sections above. See the file header. */}
-            <div
-              className="rounded-2xl px-5 py-4"
-              style={{ background: 'rgba(245,166,35,0.08)', border: '1.5px solid rgba(245,166,35,0.30)' }}
-            >
-              <p className="flex items-center gap-2 text-sm font-semibold mb-1.5 text-eyebrow-token">
-                <AlertTriangle className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-                Pending advocate review
-              </p>
-              <p className="text-[0.8125rem] leading-relaxed text-muted-token">
-                The collection, sharing and retention statements on this page have been verified
-                against what this website and our project process actually do. The page has not yet
-                been settled by a practising advocate against the DPDP Act, 2023 and its Rules, and
-                will be replaced with a lawyer-reviewed version before final launch.
-              </p>
-            </div>
 
             {/* ── Footer link row ─────────────────────────────────────────── */}
             <div className="print-hide flex flex-wrap gap-x-6 gap-y-2 items-center text-sm text-muted-token pt-2">
