@@ -333,7 +333,7 @@ export default function Homepage() {
   const [prevSlide, setPrevSlide] = useState(null);
   const prefersReducedMotion = useRef(
     typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
 
   /* Bumped on every manual click so the autoplay effect re-runs and restarts
@@ -1997,191 +1997,191 @@ export default function Homepage() {
       }}>
         <Atmosphere preset="products" />
         <div className="container-site py-16 md:py-20">
-        <div className="max-w-2xl mb-12">
-          <p className="text-xs font-semibold tracking-wide uppercase text-eyebrow-token mb-3">Our Product Range</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary-token mb-4">
-            Three system types. One right fit for you.
-          </h2>
-          <p className="text-muted-token leading-relaxed">
-            Every installation starts with matching your site and usage pattern to the correct
-            architecture — grid-tied, battery-backed, or fully independent.
-          </p>
-        </div>
+          <div className="max-w-2xl mb-12">
+            <p className="text-xs font-semibold tracking-wide uppercase text-eyebrow-token mb-3">Our Product Range</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary-token mb-4">
+              Two system types. One right fit for you.
+            </h2>
+            <p className="text-muted-token leading-relaxed">
+              Every installation starts with matching your site and usage pattern to the correct
+              architecture — grid-tied, battery-backed, or fully independent.
+            </p>
+          </div>
 
-        {/* Row 1 — Flagship cards: On-Grid + Hybrid */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8">
+          {/* Row 1 — Flagship cards: On-Grid + Hybrid */}
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8">
 
-          {/* ON GRID */}
-          <div className="group card-hover card-elevated bg-white rounded-2xl border border-token overflow-hidden flex flex-col slide-up" style={{ borderTop: '3px solid var(--color-primary)' }}>
-            {/* Image — cinematic top banner */}
-            <div className="relative w-full h-64 md:h-72 overflow-hidden flex-shrink-0">
-              <img
-                src="/products/ongrid-solar.png"
-                alt="On-Grid solar rooftop installation"
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-              />
-              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
-              <div
-                className="absolute top-3 right-3 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full z-10 motion-reduce:transition-none"
-                style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))', boxShadow: '0 4px 12px var(--glow-gold-strong)' }}
-              >
-                MOST POPULAR
+            {/* ON GRID */}
+            <div className="group card-hover card-elevated bg-white rounded-2xl border border-token overflow-hidden flex flex-col slide-up" style={{ borderTop: '3px solid var(--color-primary)' }}>
+              {/* Image — cinematic top banner */}
+              <div className="relative w-full h-64 md:h-72 overflow-hidden flex-shrink-0">
+                <img
+                  src="/products/ongrid-solar.png"
+                  alt="On-Grid solar rooftop installation"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
+                <div
+                  className="absolute top-3 right-3 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full z-10 motion-reduce:transition-none"
+                  style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))', boxShadow: '0 4px 12px var(--glow-gold-strong)' }}
+                >
+                  MOST POPULAR
+                </div>
               </div>
-            </div>
-            {/* Content — 2-column split below image */}
-            <div className="p-7 grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Left: The 'Why' — description & features */}
-              <div className="flex flex-col">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ background: "linear-gradient(135deg, rgba(245,166,35,0.20) 0%, rgba(245,166,35,0.07) 100%)" }}>
-                  <Zap className="w-6 h-6 text-secondary-token" />
-                </div>
-                <h3 className="text-xl font-semibold text-secondary-token mb-2">On Grid</h3>
-                <p className="text-sm text-muted-token mb-5 leading-relaxed">
-                  Connected directly to the utility grid, sized against your monthly billing units.
-                </p>
-                <ul className="text-sm text-muted-token space-y-2">
-                  <li><span className="font-semibold text-secondary-token">🔋 Zero Battery Maintenance</span> — Pure solar generation. Nothing to monitor, service, or replace.</li>
-                  <li><span className="font-semibold text-secondary-token">💰 100% Subsidy Eligible</span> — Get the full government subsidy on your system.</li>
-                  <li><span className="font-semibold text-secondary-token">⚡ Grid-Synced Safety</span> — Automatically pauses during outages (anti-islanding protection) to keep utility crews safe.</li>
-                  <li><span className="font-semibold text-secondary-token">🔌 Grid-Connected</span> — Works alongside your existing power connection, not instead of it.</li>
-                  <li><span className="font-semibold text-secondary-token">📉 Built For: Maximum Bill Savings</span> — Shrinks your electricity bill through net metering.</li>
-                </ul>
-              </div>
-              {/* Right: The 'What' — specs & CTA */}
-              <div className="flex flex-col">
-                {/* A1 — Warranty badges */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(30,158,99,0.10)', color: '#1E9E63' }}>
-                    <Shield className="w-3 h-3" /> 27yr Panel Warranty
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(10,37,64,0.07)', color: 'var(--color-secondary)' }}>
-                    <Shield className="w-3 h-3" /> 10yr Inverter Warranty
-                  </span>
-                </div>
-                <div className="mb-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-token mb-2.5">Solar Panels</p>
-                  <ul className="space-y-2.5">
-                    {PANEL_BRANDS.map(({ brand, variants }) => (
-                      <li key={brand} className="flex items-start gap-2.5">
-                        <BrandMark name={brand} />
-                        <div className="min-w-0 flex-1">
-                          <p className="text-sm font-semibold text-secondary-token leading-tight">{brand}</p>
-                          <ul className="mt-1 space-y-0.5">
-                            {variants.map(([tech, watts]) => (
-                              <li key={tech} className="flex justify-between gap-3 text-xs text-muted-token">
-                                <span>{tech}</span>
-                                <span className="font-medium text-secondary-token">{watts}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mb-6">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-token mb-2.5">Inverter Brands</p>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      { label: 'UTL Solar', mark: 'UTL' },
-                      { label: 'Solaryaan', mark: 'Solaryaan' },
-                      { label: 'Polycab', mark: 'Polycab' },
-                    ].map((b) => (
-                      <span key={b.label} className="brand-chip inline-flex items-center gap-1.5 text-xs font-medium rounded-full pl-1 pr-3 py-1">
-                        <BrandMark name={b.mark} />
-                        {b.label}
-                      </span>
-                    ))}
+              {/* Content — 2-column split below image */}
+              <div className="p-7 grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Left: The 'Why' — description & features */}
+                <div className="flex flex-col">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ background: "linear-gradient(135deg, rgba(245,166,35,0.20) 0%, rgba(245,166,35,0.07) 100%)" }}>
+                    <Zap className="w-6 h-6 text-secondary-token" />
                   </div>
-                </div>
-                <Link to="/quote?type=ON_GRID" className="mt-auto text-sm font-semibold text-secondary-token inline-flex items-center gap-1.5 focus-ring rounded-md hover:gap-2.5 transition-all">
-                  Get an On-Grid estimate <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* HYBRID */}
-          <div className="group card-hover card-elevated bg-white rounded-2xl border border-token overflow-hidden flex flex-col slide-up" style={{ borderTop: '3px solid var(--color-primary)', transitionDelay: '0.1s' }}>
-            {/* Image — cinematic top banner */}
-            <div className="relative w-full h-64 md:h-72 overflow-hidden flex-shrink-0">
-              <img
-                src="/products/hybrid-solar.png"
-                alt="Hybrid solar system with battery storage"
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-              />
-              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
-              <div
-                className="absolute top-3 right-3 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full z-10 motion-reduce:transition-none"
-                style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))', boxShadow: '0 4px 12px var(--glow-gold-strong)' }}
-              >
-                RECOMMENDED
-              </div>
-            </div>
-            {/* Content — 2-column split below image */}
-            <div className="p-7 grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Left: The 'Why' — description & features */}
-              <div className="flex flex-col">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ background: "linear-gradient(135deg, rgba(245,166,35,0.20) 0%, rgba(245,166,35,0.07) 100%)" }}>
-                  <BatteryCharging className="w-6 h-6 text-secondary-token" />
-                </div>
-                <h3 className="text-xl font-semibold text-secondary-token mb-2">Hybrid</h3>
-                <p className="text-sm text-muted-token mb-5 leading-relaxed">
-                  Solar generation with battery backup, for daytime and night-time reliability.
-                </p>
-                <ul className="text-sm text-muted-token space-y-2 mb-2">
-                  <li><span className="font-semibold text-secondary-token">🔋 Battery-Backed Reliability</span> — Solar generation and battery storage, working together.</li>
-                  <li><span className="font-semibold text-secondary-token">💰 Subsidy Eligible*</span> — Applies to panels & inverter.</li>
-                  <li><span className="font-semibold text-secondary-token">⚡ Seamless Power-Cut Protection</span> — Switches to battery automatically. The lights never flicker.</li>
-                  <li><span className="font-semibold text-secondary-token">🔌 Best of Both Worlds</span> — Grid-connected for savings, battery-backed for independence.</li>
-                  <li><span className="font-semibold text-secondary-token">🛡️ Built For: Uninterrupted Power + Bill Reduction</span> — Save on bills and stay powered through every outage.</li>
-                </ul>
-                <p className="text-xs text-muted-token mt-2">*Battery typically excluded from subsidy calculation.</p>
-              </div>
-              {/* Right: The 'What' — specs & CTA */}
-              <div className="flex flex-col">
-                {/* A1 — Warranty badges */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(30,158,99,0.10)', color: '#1E9E63' }}>
-                    <Shield className="w-3 h-3" /> 27yr Panel Warranty
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(10,37,64,0.07)', color: 'var(--color-secondary)' }}>
-                    <Shield className="w-3 h-3" /> 5yr Inverter Warranty
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(245,166,35,0.10)', color: 'var(--color-primary-text)' }}>
-                    <Shield className="w-3 h-3" /> 5yr Battery Warranty
-                  </span>
-                </div>
-                <div className="mb-4 pb-4 border-b border-token">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-token mb-2">IP 67 Series</p>
-                  <ul className="text-sm text-secondary-token space-y-1.5">
-                    <li>3KW – 10KW range</li>
-                    <li>Requires a battery bank</li>
-                    <li>Lead-acid or Lithium, 48VDC in 5KWH multiples</li>
-                    <li>1 phase – 3 phase operation</li>
+                  <h3 className="text-xl font-semibold text-secondary-token mb-2">On Grid</h3>
+                  <p className="text-sm text-muted-token mb-5 leading-relaxed">
+                    Connected directly to the utility grid, sized against your monthly billing units.
+                  </p>
+                  <ul className="text-sm text-muted-token space-y-2">
+                    <li><span className="font-semibold text-secondary-token">🔋 Zero Battery Maintenance</span> — Pure solar generation. Nothing to monitor, service, or replace.</li>
+                    <li><span className="font-semibold text-secondary-token">💰 100% Subsidy Eligible</span> — Get the full government subsidy on your system.</li>
+                    <li><span className="font-semibold text-secondary-token">⚡ Grid-Synced Safety</span> — Automatically pauses during outages (anti-islanding protection) to keep utility crews safe.</li>
+                    <li><span className="font-semibold text-secondary-token">🔌 Grid-Connected</span> — Works alongside your existing power connection, not instead of it.</li>
+                    <li><span className="font-semibold text-secondary-token">📉 Built For: Maximum Bill Savings</span> — Shrinks your electricity bill through net metering.</li>
                   </ul>
                 </div>
-                <div className="mb-6">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-token mb-2">IP 21 Series</p>
-                  <ul className="text-sm text-secondary-token space-y-1.5">
-                    <li>3.5KW – 6.5KW range</li>
-                    <li>Can operate without a battery</li>
-                    <li>3.5KW → 24VDC, 1 phase</li>
-                    <li>6.5KW → 48VDC, 3 phase</li>
-                  </ul>
+                {/* Right: The 'What' — specs & CTA */}
+                <div className="flex flex-col">
+                  {/* A1 — Warranty badges */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(30,158,99,0.10)', color: '#1E9E63' }}>
+                      <Shield className="w-3 h-3" /> 27yr Panel Warranty
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(10,37,64,0.07)', color: 'var(--color-secondary)' }}>
+                      <Shield className="w-3 h-3" /> 10yr Inverter Warranty
+                    </span>
+                  </div>
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-token mb-2.5">Solar Panels</p>
+                    <ul className="space-y-2.5">
+                      {PANEL_BRANDS.map(({ brand, variants }) => (
+                        <li key={brand} className="flex items-start gap-2.5">
+                          <BrandMark name={brand} />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm font-semibold text-secondary-token leading-tight">{brand}</p>
+                            <ul className="mt-1 space-y-0.5">
+                              {variants.map(([tech, watts]) => (
+                                <li key={tech} className="flex justify-between gap-3 text-xs text-muted-token">
+                                  <span>{tech}</span>
+                                  <span className="font-medium text-secondary-token">{watts}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mb-6">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-token mb-2.5">Inverter Brands</p>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        { label: 'UTL Solar', mark: 'UTL' },
+                        { label: 'Solaryaan', mark: 'Solaryaan' },
+                        { label: 'Polycab', mark: 'Polycab' },
+                      ].map((b) => (
+                        <span key={b.label} className="brand-chip inline-flex items-center gap-1.5 text-xs font-medium rounded-full pl-1 pr-3 py-1">
+                          <BrandMark name={b.mark} />
+                          {b.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <Link to="/quote?type=ON_GRID" className="mt-auto text-sm font-semibold text-secondary-token inline-flex items-center gap-1.5 focus-ring rounded-md hover:gap-2.5 transition-all">
+                    Get an On-Grid estimate <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
-                <Link to="/quote?type=HYBRID" className="mt-auto text-sm font-semibold text-secondary-token inline-flex items-center gap-1.5 focus-ring rounded-md hover:gap-2.5 transition-all">
-                  Get a Hybrid estimate <ArrowRight className="w-4 h-4" />
-                </Link>
               </div>
             </div>
-          </div>
 
-        </div>{/* end product cards */}
+            {/* HYBRID */}
+            <div className="group card-hover card-elevated bg-white rounded-2xl border border-token overflow-hidden flex flex-col slide-up" style={{ borderTop: '3px solid var(--color-primary)', transitionDelay: '0.1s' }}>
+              {/* Image — cinematic top banner */}
+              <div className="relative w-full h-64 md:h-72 overflow-hidden flex-shrink-0">
+                <img
+                  src="/products/hybrid-solar.png"
+                  alt="Hybrid solar system with battery storage"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
+                <div
+                  className="absolute top-3 right-3 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full z-10 motion-reduce:transition-none"
+                  style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))', boxShadow: '0 4px 12px var(--glow-gold-strong)' }}
+                >
+                  RECOMMENDED
+                </div>
+              </div>
+              {/* Content — 2-column split below image */}
+              <div className="p-7 grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Left: The 'Why' — description & features */}
+                <div className="flex flex-col">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ background: "linear-gradient(135deg, rgba(245,166,35,0.20) 0%, rgba(245,166,35,0.07) 100%)" }}>
+                    <BatteryCharging className="w-6 h-6 text-secondary-token" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-secondary-token mb-2">Hybrid</h3>
+                  <p className="text-sm text-muted-token mb-5 leading-relaxed">
+                    Solar generation with battery backup, for daytime and night-time reliability.
+                  </p>
+                  <ul className="text-sm text-muted-token space-y-2 mb-2">
+                    <li><span className="font-semibold text-secondary-token">🔋 Battery-Backed Reliability</span> — Solar generation and battery storage, working together.</li>
+                    <li><span className="font-semibold text-secondary-token">💰 Subsidy Eligible*</span> — Applies to panels & inverter.</li>
+                    <li><span className="font-semibold text-secondary-token">⚡ Seamless Power-Cut Protection</span> — Switches to battery automatically. The lights never flicker.</li>
+                    <li><span className="font-semibold text-secondary-token">🔌 Best of Both Worlds</span> — Grid-connected for savings, battery-backed for independence.</li>
+                    <li><span className="font-semibold text-secondary-token">🛡️ Built For: Uninterrupted Power + Bill Reduction</span> — Save on bills and stay powered through every outage.</li>
+                  </ul>
+                  <p className="text-xs text-muted-token mt-2">*Battery typically excluded from subsidy calculation.</p>
+                </div>
+                {/* Right: The 'What' — specs & CTA */}
+                <div className="flex flex-col">
+                  {/* A1 — Warranty badges */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(30,158,99,0.10)', color: '#1E9E63' }}>
+                      <Shield className="w-3 h-3" /> 27yr Panel Warranty
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(10,37,64,0.07)', color: 'var(--color-secondary)' }}>
+                      <Shield className="w-3 h-3" /> 5yr Inverter Warranty
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-1" style={{ background: 'rgba(245,166,35,0.10)', color: 'var(--color-primary-text)' }}>
+                      <Shield className="w-3 h-3" /> 5yr Battery Warranty
+                    </span>
+                  </div>
+                  <div className="mb-4 pb-4 border-b border-token">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-token mb-2">IP 67 Series</p>
+                    <ul className="text-sm text-secondary-token space-y-1.5">
+                      <li>3KW – 10KW range</li>
+                      <li>Requires a battery bank</li>
+                      <li>Lead-acid or Lithium, 48VDC in 5KWH multiples</li>
+                      <li>1 phase – 3 phase operation</li>
+                    </ul>
+                  </div>
+                  <div className="mb-6">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-token mb-2">IP 21 Series</p>
+                    <ul className="text-sm text-secondary-token space-y-1.5">
+                      <li>3.5KW – 6.5KW range</li>
+                      <li>Can operate without a battery</li>
+                      <li>3.5KW → 24VDC, 1 phase</li>
+                      <li>6.5KW → 48VDC, 3 phase</li>
+                    </ul>
+                  </div>
+                  <Link to="/quote?type=HYBRID" className="mt-auto text-sm font-semibold text-secondary-token inline-flex items-center gap-1.5 focus-ring rounded-md hover:gap-2.5 transition-all">
+                    Get a Hybrid estimate <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
 
-        {/* Phase 2 — the Off-Grid card used to sit here as a third row: a
+          </div>{/* end product cards */}
+
+          {/* Phase 2 — the Off-Grid card used to sit here as a third row: a
             centred, dashed-border "Coming Soon" panel with no specifications in
             it, no price, and a CTA that went to the contact form.
 
@@ -2440,26 +2440,26 @@ export default function Homepage() {
       <div className="atmos-host" style={{
         background: 'linear-gradient(180deg, #FDF6E6 0%, #FEFAF1 40%, #FFFEFA 100%)',
       }}>
-      <Atmosphere preset="offer" />
+        <Atmosphere preset="offer" />
 
-      <section id="subsidy" className="container-site pt-16 pb-16 md:pt-20 md:pb-20">
-        {/* Heading rises, then the scheme panel follows it. Both are centred
+        <section id="subsidy" className="container-site pt-16 pb-16 md:pt-20 md:pb-20">
+          {/* Heading rises, then the scheme panel follows it. Both are centred
             blocks rather than side-placed, so `reveal-up` is the right primitive
             — a sideways entry on a centred column reads as a mistake. */}
-        <div className="mb-8 text-center max-w-2xl mx-auto reveal-up">
-          <p className="text-xs font-semibold tracking-wide uppercase text-eyebrow-token mb-3">Subsidy</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary-token mb-4">
-            Your rooftop is partly funded by the government
-          </h2>
-          <p className="text-muted-token leading-relaxed">
-            Residential rooftop solar in Gujarat qualifies for a central subsidy of up to ₹78,000.
-            Check what your home is eligible for on the official portal.
-          </p>
-        </div>
-        <div className="reveal-up" style={{ '--reveal-delay': '150ms' }}>
-          <SchemeCTA />
-        </div>
-      </section>
+          <div className="mb-8 text-center max-w-2xl mx-auto reveal-up">
+            <p className="text-xs font-semibold tracking-wide uppercase text-eyebrow-token mb-3">Subsidy</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary-token mb-4">
+              Your rooftop is partly funded by the government
+            </h2>
+            <p className="text-muted-token leading-relaxed">
+              Residential rooftop solar in Gujarat qualifies for a central subsidy of up to ₹78,000.
+              Check what your home is eligible for on the official portal.
+            </p>
+          </div>
+          <div className="reveal-up" style={{ '--reveal-delay': '150ms' }}>
+            <SchemeCTA />
+          </div>
+        </section>
 
       </div>{/* end subsidy band */}
 
@@ -2782,9 +2782,8 @@ export default function Homepage() {
       {/* Floating Back to Top Button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed z-50 p-3.5 rounded-full bg-primary-token text-secondary-token shadow-[0_4px_14px_rgba(245,166,35,0.4)] focus-ring transition-all duration-500 hover:scale-110 hover:-translate-y-1 hover:shadow-[0_6px_20px_rgba(245,166,35,0.55)] ${
-          showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
-        }`}
+        className={`fixed z-50 p-3.5 rounded-full bg-primary-token text-secondary-token shadow-[0_4px_14px_rgba(245,166,35,0.4)] focus-ring transition-all duration-500 hover:scale-110 hover:-translate-y-1 hover:shadow-[0_6px_20px_rgba(245,166,35,0.55)] ${showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
+          }`}
         style={{ bottom: "6.25rem", right: "1.75rem" }}
         aria-label="Back to top"
       >
